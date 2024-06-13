@@ -1,7 +1,20 @@
-export default function Home() {
+import Catalog from "~/components/ui/catalog/Catalog";
+import Hero from "~/components/ui/hero/Hero";
+import { ProductService } from "~/services/product.service";
+
+async function getProducts() {
+  const data = await ProductService.getAll();
+
+  return data;
+}
+
+export default async function Home() {
+  const data = await getProducts();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Home page
-    </main>
+    <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+      <Hero />
+      <Catalog products={data} isFull={false} />
+    </div>
   );
 }
